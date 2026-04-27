@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <defs>
+    <linearGradient id="favicon-bg" x1="8" y1="6" x2="42" y2="44" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#17232C"/>
+      <stop offset="1" stop-color="#0F766E"/>
+    </linearGradient>
+    <linearGradient id="favicon-accent" x1="12" y1="38" x2="41" y2="14" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F2A93B"/>
+      <stop offset="1" stop-color="#FFCA6A"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="13" fill="url(#favicon-bg)"/>
+  <path d="M8 36L36 8H48V20L20 48H8V36Z" fill="#0F766E" opacity=".42"/>
+  <path d="M32 12H41V21L20 42H11V33L32 12Z" fill="url(#favicon-accent)"/>
+  <path d="M13.5 35.5L23.7 13.5C24.2 12.4 25.8 12.4 26.3 13.5L36.5 35.5" fill="none" stroke="#FFFFFF" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M18.9 28.3H31.1" fill="none" stroke="#FFFFFF" stroke-width="4.8" stroke-linecap="round"/>
+  <circle cx="37" cy="11" r="3" fill="#F2A93B"/>
+</svg>
