@@ -526,7 +526,53 @@ main:has(.service-detail-layout) .page-hero .button {
     padding-block: 44px 54px;
   }
 
-  #included .check-list li,
+  #included .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  #included {
+    scroll-margin-top: calc(var(--header-height) + 18px);
+  }
+
+  #included .check-list {
+    gap: 14px;
+  }
+
+  #included .check-list li {
+    min-height: 0;
+    border: 1px solid var(--color-line);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.86);
+    padding: 16px 16px 16px 72px;
+    box-shadow: 0 10px 24px rgba(21, 28, 36, 0.04);
+  }
+
+  #included .check-list li:hover {
+    transform: none;
+  }
+
+  #included .check-list li::before {
+    left: 16px;
+    top: 50%;
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+    transform: translateY(-50%);
+  }
+
+  #included .check-list li:hover::before {
+    transform: translateY(-50%);
+  }
+
+  #included .check-list li::after {
+    left: 26px;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    transform: translateY(-50%);
+  }
+
   #approach .grid article {
     padding-left: 0;
     padding-top: 82px;

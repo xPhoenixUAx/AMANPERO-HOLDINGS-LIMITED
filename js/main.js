@@ -29,6 +29,11 @@
     document.body.classList.remove("menu-open");
     openButton.setAttribute("aria-expanded", "false");
     menu.setAttribute("aria-hidden", "true");
+    menu.querySelectorAll(".mobile-services.is-open").forEach((dropdown) => {
+      dropdown.classList.remove("is-open");
+      const trigger = dropdown.querySelector(".mobile-services__trigger");
+      if (trigger) trigger.setAttribute("aria-expanded", "false");
+    });
   }
 
   function initServicesDropdown() {
@@ -82,6 +87,43 @@
     });
   }
 
+  function initMobileServicesDropdown() {
+    if (!menu) return;
+    const mobileNav = menu.querySelector(".mobile-menu__nav");
+    const servicesLink = mobileNav ? mobileNav.querySelector('a[href="services.html"]') : null;
+    if (!mobileNav || !servicesLink || servicesLink.closest(".mobile-services")) return;
+
+    const dropdown = document.createElement("div");
+    const panelId = "mobile-services-panel";
+    dropdown.className = "mobile-services";
+    dropdown.innerHTML = `
+      <button class="mobile-services__trigger" type="button" aria-expanded="false" aria-controls="${panelId}">
+        <span>Services</span>
+      </button>
+      <div class="mobile-services__panel" id="${panelId}">
+        <a href="services.html">All Services</a>
+        <a href="service-marketing-strategy.html">Marketing Strategy</a>
+        <a href="service-performance-campaigns.html">Performance Campaigns</a>
+        <a href="service-web-design.html">Web Design & UX Structure</a>
+        <a href="service-website-development.html">Website Development</a>
+        <a href="service-landing-pages-cro.html">Landing Pages & CRO</a>
+        <a href="service-analytics-support.html">Analytics & Website Support</a>
+      </div>
+    `;
+
+    servicesLink.replaceWith(dropdown);
+
+    const trigger = dropdown.querySelector(".mobile-services__trigger");
+    const serviceLinks = dropdown.querySelectorAll("a");
+
+    trigger.addEventListener("click", () => {
+      const isOpen = dropdown.classList.toggle("is-open");
+      trigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+
+    serviceLinks.forEach((link) => link.addEventListener("click", closeMenu));
+  }
+
   function setError(field, message) {
     const wrapper = field.closest(".field");
     const error = wrapper ? wrapper.querySelector(".field__error") : null;
@@ -133,6 +175,7 @@
   window.addEventListener("scroll", updateHeader, { passive: true });
   updateHeader();
   initServicesDropdown();
+  initMobileServicesDropdown();
 
   openButton && openButton.addEventListener("click", openMenu);
   closeButton && closeButton.addEventListener("click", closeMenu);
@@ -558,10 +601,165 @@
     }, 1400);
   }
 
+  function initCookieConsent() {
+    const storageKey = "amanpero_cookie_consent_v1";
+
+    function readConsent() {
+      try {
+        const saved = window.localStorage.getItem(storageKey);
+        return saved ? JSON.parse(saved) : null;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function saveConsent(settings) {
+      const consent = {
+        essential: true,
+        analytics: Boolean(settings.analytics),
+        marketing: Boolean(settings.marketing),
+        savedAt: new Date().toISOString(),
+      };
+
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(consent));
+      } catch (error) {
+        // Consent still applies for the current page if storage is unavailable.
+      }
+
+      applyConsent(consent);
+      return consent;
+    }
+
+    function applyConsent(consent) {
+      window.amanperoCookieConsent = consent;
+      document.documentElement.dataset.analyticsCookies = consent.analytics ? "granted" : "denied";
+      document.documentElement.dataset.marketingCookies = consent.marketing ? "granted" : "denied";
+      window.dispatchEvent(new CustomEvent("amanpero:cookie-consent", { detail: consent }));
+    }
+
+    const footerBottom = document.querySelector(".footer__bottom");
+    if (footerBottom && !footerBottom.querySelector("[data-cookie-preferences]")) {
+      const preferencesButton = document.createElement("button");
+      preferencesButton.className = "footer-cookie-button";
+      preferencesButton.type = "button";
+      preferencesButton.dataset.cookiePreferences = "true";
+      preferencesButton.textContent = "Cookie Preferences";
+      footerBottom.appendChild(preferencesButton);
+    }
+
+    const existingConsent = readConsent();
+    if (existingConsent) applyConsent(existingConsent);
+
+    const widget = document.createElement("div");
+    widget.className = "cookie-consent";
+    widget.setAttribute("aria-live", "polite");
+    widget.innerHTML = `
+      <section class="cookie-banner" aria-label="Cookie notice">
+        <div>
+          <p class="cookie-banner__title">Cookie preferences</p>
+          <p>We use essential cookies to run the website. With your permission, we may also use analytics and marketing cookies to improve performance and measure campaigns.</p>
+        </div>
+        <div class="cookie-banner__actions">
+          <button class="button button--primary" type="button" data-cookie-accept>Accept all</button>
+          <button class="button button--ghost" type="button" data-cookie-reject>Reject non-essential</button>
+          <button class="button button--light" type="button" data-cookie-manage>Manage choices</button>
+        </div>
+      </section>
+      <section class="cookie-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="cookie-modal-title">
+        <div class="cookie-modal__panel">
+          <div class="cookie-modal__header">
+            <div>
+              <p class="eyebrow">Privacy controls</p>
+              <h2 id="cookie-modal-title">Manage cookie choices</h2>
+            </div>
+            <button class="cookie-modal__close" type="button" data-cookie-close aria-label="Close cookie preferences">Close</button>
+          </div>
+          <div class="cookie-options">
+            <label class="cookie-option is-disabled">
+              <span>
+                <strong>Essential cookies</strong>
+                <small>Required for navigation, security, consent storage, and form functionality.</small>
+              </span>
+              <input type="checkbox" checked disabled>
+            </label>
+            <label class="cookie-option">
+              <span>
+                <strong>Analytics cookies</strong>
+                <small>Help us understand website usage and improve content and performance.</small>
+              </span>
+              <input type="checkbox" data-cookie-analytics>
+            </label>
+            <label class="cookie-option">
+              <span>
+                <strong>Marketing cookies</strong>
+                <small>Support advertising measurement, remarketing, and campaign effectiveness.</small>
+              </span>
+              <input type="checkbox" data-cookie-marketing>
+            </label>
+          </div>
+          <div class="cookie-modal__actions">
+            <button class="button button--primary" type="button" data-cookie-save>Save choices</button>
+            <button class="button button--ghost" type="button" data-cookie-modal-accept>Accept all</button>
+          </div>
+        </div>
+      </section>
+    `;
+
+    document.body.appendChild(widget);
+
+    const banner = widget.querySelector(".cookie-banner");
+    const modal = widget.querySelector(".cookie-modal");
+    const analyticsInput = widget.querySelector("[data-cookie-analytics]");
+    const marketingInput = widget.querySelector("[data-cookie-marketing]");
+    const manageButtons = document.querySelectorAll("[data-cookie-preferences], [data-cookie-manage]");
+    const acceptButtons = widget.querySelectorAll("[data-cookie-accept], [data-cookie-modal-accept]");
+    const rejectButton = widget.querySelector("[data-cookie-reject]");
+    const saveButton = widget.querySelector("[data-cookie-save]");
+    const closeButton = widget.querySelector("[data-cookie-close]");
+
+    function hideBanner() {
+      banner.classList.add("is-hidden");
+    }
+
+    function openPreferences() {
+      const current = readConsent() || { analytics: false, marketing: false };
+      analyticsInput.checked = Boolean(current.analytics);
+      marketingInput.checked = Boolean(current.marketing);
+      modal.setAttribute("aria-hidden", "false");
+      widget.classList.add("is-managing");
+      closeButton.focus();
+    }
+
+    function closePreferences() {
+      modal.setAttribute("aria-hidden", "true");
+      widget.classList.remove("is-managing");
+    }
+
+    function completeConsent(settings) {
+      saveConsent(settings);
+      hideBanner();
+      closePreferences();
+    }
+
+    if (existingConsent) hideBanner();
+
+    manageButtons.forEach((button) => button.addEventListener("click", openPreferences));
+    acceptButtons.forEach((button) => button.addEventListener("click", () => completeConsent({ analytics: true, marketing: true })));
+    rejectButton.addEventListener("click", () => completeConsent({ analytics: false, marketing: false }));
+    saveButton.addEventListener("click", () => completeConsent({ analytics: analyticsInput.checked, marketing: marketingInput.checked }));
+    closeButton.addEventListener("click", closePreferences);
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && modal.getAttribute("aria-hidden") === "false") closePreferences();
+    });
+  }
+
   initScrollMotion();
   attachTilt(".service-tile, .testimonial-card, .why-card, .capability-item");
   attachMagneticButtons();
   initPageProgress();
+  initCookieConsent();
   initCursorHalo();
   initSpotlightSections();
   initFlowPulse();
