@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact Amanpero Agency | Start a Digital Project</title>
+  <meta name="description" content="Contact Amanpero Agency to discuss marketing strategy, web design, website development, landing pages, launch support, or maintenance.">
+  <link rel="stylesheet" href="css/bundle.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" data-header>
+    <div class="container header__inner">
+      <a class="brand" href="index.html" aria-label="Amanpero Agency home"><span class="brand__mark" aria-hidden="true"></span><span>Amanpero Agency</span></a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="index.html">Home</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html" aria-current="page">Contact</a>
+      </nav>
+      <a class="button button--accent header__cta" href="contact.html">Start a Project</a>
+      <button class="menu-toggle" type="button" data-menu-open aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false"><span class="menu-toggle__lines"></span></button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobile-menu" data-mobile-menu aria-hidden="true">
+    <button class="mobile-menu__close" type="button" data-menu-close aria-label="Close menu">&times;</button>
+    <nav class="mobile-menu__nav" aria-label="Mobile navigation">
+      <a href="index.html">Home</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a><a class="button button--primary" href="contact.html">Start a Project</a>
+    </nav>
+    <p class="mobile-menu__support">Plan your next digital project with strategy, design, development, and launch support in one place.</p>
+  </div>
+
+  <main id="main">
+    <section class="contact-intro-band">
+      <div class="container contact-intro-band__inner">
+        <p class="eyebrow">Contact</p>
+        <h1>Start a conversation with Amanpero Agency.</h1>
+        <p>Send a project inquiry or use the map to locate AMANPERO HOLDINGS LIMITED in Limassol, Cyprus.</p>
+      </div>
+    </section>
+
+    <section class="contact-main">
+      <div class="container contact-map" aria-label="Amanpero Agency location in Limassol, Cyprus">
+        <iframe title="Map showing Filokyprou, Limassol, Cyprus" src="https://www.google.com/maps?q=Filokyprou%204%2C%20Limassol%203032%2C%20Cyprus&amp;hl=en&amp;z=15&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="container contact-layout">
+        <aside class="contact-sidebar" aria-label="Contact details">
+          <div class="contact-intro">
+            <p class="eyebrow">Project inquiries</p>
+            <h2>Tell us what needs to be planned, built, launched, or improved.</h2>
+            <p>Use the form for project requests. Amanpero Agency replies by email after reviewing the business context, service fit, timeline, and scope.</p>
+          </div>
+
+          <div class="contact-detail-list">
+            <div class="contact-detail">
+              <span class="contact-detail__icon"><span class="icon-mask icon-mask--mail-check"></span></span>
+              <div>
+                <strong>Email</strong>
+                <a href="mailto:support@amanperoagency.com">support@amanperoagency.com</a>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <span class="contact-detail__icon"><span class="icon-mask icon-mask--map-pin"></span></span>
+              <div>
+                <strong>Company address</strong>
+                <span>Filokyprou, 4, Flat/Office 201, 3032, Limassol, Cyprus</span>
+              </div>
+            </div>
+            <div class="contact-detail">
+              <span class="contact-detail__icon"><span class="icon-mask icon-mask--route"></span></span>
+              <div>
+                <strong>Next step</strong>
+                <span>Share the project goal, current website status, timing, and the support you need.</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <form class="contact-form" action="/send-mail.php" method="POST" data-validate-form novalidate>
+          <div class="contact-form__header">
+            <p class="eyebrow">Start a conversation</p>
+            <h2>Project brief</h2>
+          </div>
+
+          <div class="form__row">
+            <div class="field">
+              <label for="name">Name *</label>
+              <input id="name" name="name" type="text" autocomplete="name" required>
+              <div class="field__error" aria-live="polite"></div>
+            </div>
+            <div class="field">
+              <label for="email">Email *</label>
+              <input id="email" name="email" type="email" autocomplete="email" required>
+              <div class="field__error" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="field">
+              <label for="company">Company</label>
+              <input id="company" name="company" type="text" autocomplete="organization">
+              <div class="field__error" aria-live="polite"></div>
+            </div>
+            <div class="field">
+              <label for="service_interest">Service interest *</label>
+              <select id="service_interest" name="service_interest" required>
+                <option value="">Select a service</option>
+                <option>Marketing Strategy</option>
+                <option>Paid Advertising</option>
+                <option>Web Design</option>
+                <option>Website Development</option>
+                <option>Landing Pages</option>
+                <option>Frontend / Backend Development</option>
+                <option>Conversion Optimization</option>
+                <option>Website Support & Maintenance</option>
+              </select>
+              <div class="field__error" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="field">
+              <label for="budget_range">Budget range</label>
+              <select id="budget_range" name="budget_range">
+                <option value="">Select a range</option>
+                <option>Under EUR 5,000</option>
+                <option>EUR 5,000 - EUR 10,000</option>
+                <option>EUR 10,000 - EUR 25,000</option>
+                <option>EUR 25,000+</option>
+                <option>Not sure yet</option>
+              </select>
+              <div class="field__error" aria-live="polite"></div>
+            </div>
+            <div class="field">
+              <label for="project_timeline">Project timeline</label>
+              <select id="project_timeline" name="project_timeline">
+                <option value="">Select a timeline</option>
+                <option>As soon as possible</option>
+                <option>Within 1 month</option>
+                <option>1-3 months</option>
+                <option>3+ months</option>
+                <option>Exploring options</option>
+              </select>
+              <div class="field__error" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="project_details">Project details *</label>
+            <textarea id="project_details" name="project_details" required placeholder="Tell us what you need, what exists today, your goals, and any important deadlines."></textarea>
+            <div class="field__error" aria-live="polite"></div>
+          </div>
+
+          <div class="honeypot" aria-hidden="true">
+            <label for="website">Website</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="field field--consent">
+            <label><input name="consent" type="checkbox" required> I agree that AMANPERO HOLDINGS LIMITED may use my submitted information to respond to this inquiry. *</label>
+            <div class="field__error" aria-live="polite"></div>
+          </div>
+
+          <button class="button button--primary" type="submit">Send Project Inquiry</button>
+          <p class="form__status" data-form-status aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer__grid">
+      <div><div class="footer__title">Amanpero Agency</div><p>Marketing, web design, development, launch support, and maintenance for international clients.</p></div>
+      <div><div class="footer__title">Pages</div><nav class="footer__links"><a href="index.html">Home</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav></div>
+      <div><div class="footer__title">Services</div><nav class="footer__links"><a href="service-detail.html">Marketing Strategy</a><a href="service-detail.html">Web Design</a><a href="service-detail.html">Website Development</a><a href="service-detail.html">Website Support</a></nav></div>
+      <div><div class="footer__title">Contact</div><div class="footer__links"><a href="mailto:support@amanperoagency.com">support@amanperoagency.com</a><span>Filokyprou, 4, Flat/Office 201, 3032, Limassol, Cyprus</span></div></div>
+    </div>
+    <div class="container footer__bottom"><span>&copy; 2026 AMANPERO HOLDINGS LIMITED. All rights reserved.</span><span><a href="privacy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms of Service</a> &middot; <a href="cookie.html">Cookie Policy</a></span></div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
