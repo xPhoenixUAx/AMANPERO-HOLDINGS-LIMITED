@@ -31,6 +31,57 @@
     menu.setAttribute("aria-hidden", "true");
   }
 
+  function initServicesDropdown() {
+    const nav = document.querySelector(".nav");
+    const servicesLink = nav ? nav.querySelector('a[href="services.html"]') : null;
+    if (!nav || !servicesLink || servicesLink.closest(".nav-dropdown")) return;
+
+    const isCurrent = servicesLink.getAttribute("aria-current");
+    const dropdown = document.createElement("div");
+    dropdown.className = "nav-dropdown";
+
+    servicesLink.classList.add("nav-dropdown__trigger");
+    servicesLink.setAttribute("aria-haspopup", "true");
+    servicesLink.setAttribute("aria-expanded", "false");
+    if (isCurrent) servicesLink.setAttribute("aria-current", isCurrent);
+
+    dropdown.innerHTML = `
+      <div class="nav-dropdown__panel" role="group" aria-label="Amanpero Agency services">
+        <div class="nav-dropdown__grid">
+          <section class="nav-dropdown__column">
+            <p class="nav-dropdown__title">Strategy & Campaigns</p>
+            <p class="nav-dropdown__subtitle">Plan the offer and traffic path</p>
+            <a class="nav-dropdown__link nav-dropdown__link--strategy" href="service-marketing-strategy.html">Marketing Strategy</a>
+            <a class="nav-dropdown__link nav-dropdown__link--campaign" href="service-performance-campaigns.html">Performance Campaigns</a>
+          </section>
+          <section class="nav-dropdown__column">
+            <p class="nav-dropdown__title">Websites & Pages</p>
+            <p class="nav-dropdown__subtitle">Design and build conversion assets</p>
+            <a class="nav-dropdown__link nav-dropdown__link--design" href="service-web-design.html">Web Design & UX Structure</a>
+            <a class="nav-dropdown__link nav-dropdown__link--dev" href="service-website-development.html">Website Development</a>
+          </section>
+          <section class="nav-dropdown__column">
+            <p class="nav-dropdown__title">Optimization & Support</p>
+            <p class="nav-dropdown__subtitle">Improve, measure, and maintain</p>
+            <a class="nav-dropdown__link nav-dropdown__link--landing" href="service-landing-pages-cro.html">Landing Pages & CRO</a>
+            <a class="nav-dropdown__link nav-dropdown__link--support" href="service-analytics-support.html">Analytics & Website Support</a>
+          </section>
+        </div>
+      </div>
+    `;
+
+    servicesLink.replaceWith(dropdown);
+    dropdown.prepend(servicesLink);
+
+    const setExpanded = (expanded) => servicesLink.setAttribute("aria-expanded", expanded ? "true" : "false");
+    dropdown.addEventListener("pointerenter", () => setExpanded(true));
+    dropdown.addEventListener("pointerleave", () => setExpanded(false));
+    dropdown.addEventListener("focusin", () => setExpanded(true));
+    dropdown.addEventListener("focusout", (event) => {
+      if (!dropdown.contains(event.relatedTarget)) setExpanded(false);
+    });
+  }
+
   function setError(field, message) {
     const wrapper = field.closest(".field");
     const error = wrapper ? wrapper.querySelector(".field__error") : null;
@@ -81,6 +132,7 @@
 
   window.addEventListener("scroll", updateHeader, { passive: true });
   updateHeader();
+  initServicesDropdown();
 
   openButton && openButton.addEventListener("click", openMenu);
   closeButton && closeButton.addEventListener("click", closeMenu);
