@@ -6,6 +6,11 @@ function clean_input(string $value): string
     return trim(filter_var($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 }
 
+function clean_header_value(string $value): string
+{
+    return trim(str_replace(["\r", "\n"], '', $value));
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo 'This endpoint accepts POST requests only.';
@@ -48,6 +53,8 @@ if (!filter_var($fields['email'], FILTER_VALIDATE_EMAIL)) {
 $to = 'support@amanperoagency.com';
 $subject = 'New project inquiry from Amanpero Agency website';
 $submittedAt = date('Y-m-d H:i:s T');
+$replyName = clean_header_value($fields['name']);
+$replyEmail = clean_header_value($fields['email']);
 
 $message = "New project inquiry submitted via amanperoagency.com\n\n";
 $message .= "Submitted at: {$submittedAt}\n";
@@ -62,7 +69,7 @@ $message .= "Consent: {$fields['consent']}\n";
 
 $headers = [
     'From: Amanpero Agency Website <support@amanperoagency.com>',
-    'Reply-To: ' . $fields['name'] . ' <' . $fields['email'] . '>',
+    'Reply-To: ' . $replyName . ' <' . $replyEmail . '>',
     'Content-Type: text/plain; charset=UTF-8',
 ];
 
